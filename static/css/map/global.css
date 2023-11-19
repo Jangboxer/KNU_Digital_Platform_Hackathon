@@ -1,0 +1,16 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+*{
+	font-family: '나눔고딕OTF','Nanum Gothic','Nanum Gothic OTF';
+}
+
+
+
+body{
+	display:inline-block;
+	position: fixed;
+	margin:0;
+	width: 100%;
+	height: 100%;
+}

@@ -1,0 +1,79 @@
+.map_interface .icon{
+	
+	box-shadow:1px 1px 2px rgba(0,0,0,0.2);
+	background: white;
+	border-radius:100%;
+	
+	
+	display:inline-block;
+	width:40px;
+	height:40px;
+	
+	
+	background-size: 30px 30px;
+	background-position: 5px 5px;
+	background-repeat: no-repeat;
+	
+	
+	transition: 0.5s;
+	
+	cursor:pointer;
+	
+	
+}
+
+.map_interface .icon:hover{
+	
+	transform: translate(0,-5px);
+	
+}
+
+.map_interface .icon.opacity_6{
+	opacity:0.6;
+	
+}
+
+.map_interface .icon.opacity_9{
+	opacity:0.9;
+	
+}
+
+.map_interface .icon.shelter{
+	background-image: url("/static/images/outline_gite_black_48dp.png");
+}
+
+.map_interface .icon.shelter_run{
+	background-image : url("/static/images/outline_directions_run_black_48dp.png");
+}
+
+.map_interface .icon.police{
+	background-image : url("/static/images/outline_local_police_black_48dp.png");	
+}
+
+.map_interface .icon.firestation{
+	background-image : url("/static/images/outline_fire_extinguisher_black_48dp.png");	
+}
+
+.map_interface .icon.police{
+	background-image : url("/static/images/outline_local_police_black_48dp.png");	
+}
+
+.map_interface .icon.firestation{
+	background-image : url("/static/images/outline_fire_extinguisher_black_48dp.png");	
+}
+
+
+.map_interface .icon.default_hospital{
+	background-image : url("/static/images/outline_medical_services_black_48dp.png");	
+}
+
+.map_interface .icon.danger_hospital{
+	background-image : url("/static/images/outline_local_hospital_black_48dp.png");	
+}
+
+
+.map_interface .icon.shield{
+	
+	background-image: url("/static/images/outline_shield_black_48dp.png");
+	
+}

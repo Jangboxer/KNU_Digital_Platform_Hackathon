@@ -1,0 +1,54 @@
+.sound_messagebox{
+	display:inline-block;
+	
+	position: fixed;
+	top:100px;
+	left:50%;
+	
+	min-width:30%;
+	width:fit-content;
+	transform: translate(-50%,0%);
+	
+	z-index:500;
+	
+	opacity:0;
+	
+	transition:opacity 0.8s;
+	
+	pointer-events:none;
+	
+}
+.sound_messagebox.show_msg{
+	
+	opacity:0.8;
+	
+	pointer-events:auto;
+}
+
+.sound_messagebox .animation_blinking{
+	display: inline-block;
+	
+	width:50px;
+	animation-duration: 1s;
+	animation-name: animation_blinking;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
+
+@keyframes animation_blinking{
+	0%{
+		transform: translate(0%,3px);
+		opacity:0.5;
+		
+	}
+	50%{
+		transform: translate(0%,-3px);
+		opacity:1;
+		
+	}
+	100%{
+		transform: translate(0%,3px);
+		opacity:0.5;
+		
+	}
+}

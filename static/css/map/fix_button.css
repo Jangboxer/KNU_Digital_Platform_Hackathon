@@ -1,0 +1,173 @@
+
+
+
+
+.view_pins .messagebox{
+	
+	left:70px !important;
+	z-index:100;
+}
+
+
+.fix_button_body{
+	
+	position: absolute;
+	left:0px;
+	top:0px;
+	
+	z-index:50;
+	
+	width:100px;
+	height:300px;
+	
+	
+	pointer-events:none;
+}
+
+.fix_button_body ._button{
+	
+	position: relative;
+
+	width:60px;
+	height:60px;
+	
+	background: rgba(255,255,255,0.8);
+	box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+
+	border-radius:15px;
+	
+	transition: 0.3s;
+	
+	pointer-events:auto;
+	
+}
+
+.fix_button_body ._button:hover{
+	
+	background: rgba(0,0,0,0.2);
+	
+	cursor: pointer;
+	
+}
+
+
+.fix_button_body ._button.view_pins{
+	
+	position: relative;
+	
+	margin-left:10px;
+	margin-top:10px;
+	
+	background-image: url("/static/images/outline_location_on_black_48dp.png");
+	
+	background-position:5px 5px;
+	background-size: 50px 50px;
+
+	background-repeat: no-repeat;
+	
+	
+	
+}
+
+
+.fix_button_body ._button.view_weathers{
+	
+	position: relative;
+	
+	margin-left:10px;
+	margin-top:10px;
+	
+	background-image: url("/static/images/outline_thunderstorm_black_48dp.png");
+	
+	background-position:5px 5px;
+	background-size: 50px 50px;
+
+	background-repeat: no-repeat;
+	
+	
+	
+}
+
+.fix_button_body ._button.view_notifications{
+	
+	position: relative;
+	
+	margin-left:10px;
+	margin-top:10px;
+	
+	background-image: url("/static/images/outline_notifications_black_48dp.png");
+	
+	background-position:5px 5px;
+	background-size: 50px 50px;
+
+	background-repeat: no-repeat;
+	
+	
+	
+}
+
+
+.fix_button_body .option_view{
+	position: absolute;
+	
+	left:80px;
+	top:10px;
+	
+	/*ckground: red;*/
+	
+	box-sizing:border-box;
+	padding:10px;
+	
+	width:200px;
+	box-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+		
+	border-radius: 10px;
+	background: rgba(255,255,255,0.8);
+	
+	pointer-events:auto;
+}
+
+.fix_button_body .option_view{
+
+	opacity:0;
+	
+	pointer-events:none;
+	
+	
+	transition: 0.3s;
+	
+}
+.fix_button_body .view_checkbox:checked{
+
+	
+	
+	
+}
+
+.fix_button_body .view_checkbox{
+	
+	display:none;
+}
+.fix_button_body .view_checkbox:checked ~ .option_view{
+	
+	
+	opacity:1;
+	pointer-events:auto;
+	
+	
+}
+
+
+.fix_button_body .fixed_menu_notifications{
+	display:inline-block;
+	width:100%;
+	max-height:300px;
+	
+	overflow:auto;
+	
+	padding:5px;
+	
+	box-sizing:border-box;
+	
+	
+}

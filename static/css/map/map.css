@@ -1,0 +1,85 @@
+.map_parent{
+	display:inline-block;
+	
+	position: relative;
+	
+	width:100%;
+	height:calc(100% - 50px);
+	
+	z-index:0;
+	
+}
+
+.map{
+	display:inline-block;
+	
+	position: absolute;
+	width:100%;
+	height:100%;
+	
+	/*height:calc(100% - 50px);*/
+	
+	z-index:0;
+	
+	background:rgba(230,235,250,0.6);
+	
+}
+
+.map .inner_map{
+	width:100%;
+	height:100%;
+	transition: 0.5s;
+}
+
+
+/*모바일*/
+@media(max-width: 800px){
+	.map .inner_map.board_show{
+		height:calc(100% - 350px);
+	}
+}
+.map .pin_image{
+	
+	position: relative;
+	
+	
+	
+}
+
+.map .pin_image img{
+	position: absolute;
+	
+	/*top:50%;*/
+	
+	transform: translate(-50%,-100%);
+	
+	width:200px;
+	height: auto;
+	
+	box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+	
+	border-radius:10px;
+	
+	opacity:0.7;
+	transition: 0.7s;
+	
+	
+	
+}
+.map .pin_image img:hover{
+	
+	opacity:1;
+}
+
+.map .weather_text{
+	display:inline-block;
+	padding-left:30px;
+	padding-top:30px;
+	
+}
+
+.map .weather_text .background_white{
+	
+	background:white;
+	padding:5px;
+}

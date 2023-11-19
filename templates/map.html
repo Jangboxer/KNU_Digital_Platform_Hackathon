@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>여는 안전하데이</title>
+	<script
+	  src="https://code.jquery.com/jquery-3.1.1.min.js"
+	  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	  crossorigin="anonymous"></script>
+	  
+	  
+	<link rel="stylesheet" href="static/lib/toastr/toastr.min.css"/>
+    <script type="text/javascript" src="static/lib/toastr/toastr.min.js"></script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="stylesheet" href="static/css/map/global.css"/>
+	<link rel="stylesheet" href="static/css/map/lib_global.css"/>
+	
+	<link rel="stylesheet" href="static/css/map/tags.css"/>
+	<link rel="stylesheet" href="static/css/map/navigator.css"/>
+	<link rel="stylesheet" href="static/css/map/fix_button.css"/>
+	<link rel="stylesheet" href="static/css/map/map.css"/>
+	<link rel="stylesheet" href="static/css/map/map_interface.css"/>
+	<link rel="stylesheet" href="static/css/map/board.css"/>
+	<link rel="stylesheet" href="static/css/map/board_account.css"/>
+	<link rel="stylesheet" href="static/css/map/animated_components.css"/>
+	<link rel="stylesheet" href="static/css/map/board_chat.css"/>
+	<link rel="stylesheet" href="static/css/map/check_box.css"/>
+	<link rel="stylesheet" href="static/css/layout/question_box.css"/>
+	<link rel="stylesheet" href="static/css/layout/sound_messagebox.css"/>
+
+
+</head>
+<body oncontextmenu="return false" onselectstart="return false">
+
+	<div id="sound_messagebox" class="sound_messagebox colored_board_interface">
+	
+		<div class="board_box hover clickable">
+			<span class='animation_blinking' >
+				알림
+			</span>
+			<span class='inner_textlabel' >
+				알림
+			</span>
+			
+		</div>
+		
+		
+	</div>
+
+	<div id="question_box" class="question_box no_show">
+	
+		<div class="center_box">
+			<span id="question_box_title" class='title'>
+				타이틀
+			</span><br>
+			<div id="question_box_content" class='content'>
+				콘텐츠
+			</div>
+			<div id="question_box_yes_button" class='button right'>
+				예
+			</div>
+			<div id="question_box_no_button" class='button right'>
+				아니요
+			</div>
+			<div id="question_box_close_button" class='button right'>
+				닫기
+			</div>
+			
+		</div>
+		
+		
+	</div>
+	
+	<!-- 네비게이션 바 !-->
+
+	<div class="navigator_bar">
+	
+		<!-- 타이틀 !-->
+		<div class="title">
+			여는 안전하데이
+		</div>
+		
+				
+		<!-- 우측 메뉴 목록 !-->
+		<div class="right_bar">
+				
+			<!-- 로그인 버튼 !-->
+			<div class="icon login tooltip" id="navigator_login_button" onclick="pop_commands.open_login()">
+				<div class="colorbox">
+			
+				</div>
+				
+				<div class="messagebox force_left">
+					로그인
+				</div>
+		
+			</div>
+			
+			<!-- 설정 버튼 !-->
+			<div class="icon settings tooltip hide" id="navigator_user_button" onclick="pop_commands.open_logout()">
+				<div class="colorbox">
+			
+				</div>
+				
+				<div class="messagebox force_left">
+					계정
+				</div>
+		
+			</div>
+		</div>
+		
+	</div>
+
+	<!-- 맵 전체 영역 !-->
+	<div class="map_parent">
+
+		<!-- 카카오 지도 맵 로드 !-->
+		<div class="map">
+			<div id="map" class="inner_map board_show" ></div>
+		</div>
+		
+
+		<!-- 지도 위버튼 목록 !-->
+		<div class="fix_button_body">
+			<input type="radio" name="left_top_fixed_button" id="left_top_no_checked" class="view_checkbox"></input>
+				
+				
+				
+			<div>
+				<input  type="radio" name="left_top_fixed_button" id="view_checkbox0" class="view_checkbox"></input>
+				
+				<!-- 안전 시설 버튼 영역!-->
+				<label for="view_checkbox0">
+					<div class="_button view_notifications tooltip">
+					
+						
+							<div class="messagebox force_right_padding">
+								중요 알림
+							</div>
+					
+					</div>
+				</label>
+				<!-- 안전 시설 버튼 영역의 표시 창 !-->
+				<div class="option_view">
+					<span class='bold'>알림 기록</span><br>
+					<div id='fix_menu_notifications' class="fixed_menu_notifications colored_board_interface">
+						알림 기록이 없습니다.
+					</div>
+				</div>
+				
+			</div>
+			<div>
+				<input type="radio" name="left_top_fixed_button" id="view_checkbox1" class="view_checkbox"></input>
+				
+				<!-- 안전 시설 버튼 영역!-->
+				<label for="view_checkbox1">
+					<div class="_button view_pins tooltip">
+					
+						
+							<div class="messagebox force_right_padding">
+								안전 시설
+							</div>
+					
+					</div>
+				</label>
+				<!-- 안전 시설 버튼 영역의 표시 창 !-->
+				
+				<div style='position: fixed; top:60px; right:10px; display:inline-block; z-index:400; font-size:16px;'>
+					<div style='background:white; box-shadow: 1px 1px 2px rgba(0,0,0,0.1); padding:15px; border-radius:15px;' id="weather_text">
+				
+						
+						
+					</div>
+				</div>
+				
+				<div class="option_view">
+					공공 보호 시설
+					<div class='check_box'>
+						<input  onchange="check_box_request.public_on_change_event();" id="check_flag_show_saferoom" class="check_flag" type="checkbox"></input>
+						<label for="check_flag_show_saferoom"><div class='check_status'></div><div class="text_label"> 방공호 표시</div></label>
+					</div>
+				
+					<div class='check_box'>
+						<input onchange="check_box_request.public_on_change_event();" id="check_flag_show_shelter" class="check_flag" type="checkbox"></input>
+						<label for="check_flag_show_shelter"><div class='check_status'></div><div class="text_label"> 지진옥외대피소 표시</div></label>
+					</div>
+				
+					<div class='check_box'>
+						<input onchange="check_box_request.public_on_change_event();" id="check_flag_show_police" class="check_flag" type="checkbox"></input>
+						<label for="check_flag_show_police"><div class='check_status'></div><div class="text_label"> 경찰서 표시</div></label>
+					</div>
+				
+					<div class='check_box'>
+						<input onchange="check_box_request.public_on_change_event();"  id="check_flag_show_fire" class="check_flag" type="checkbox"></input>
+						<label for="check_flag_show_fire"><div class='check_status'></div><div class="text_label"> 소방서 표시</div></label>
+					</div>
+					
+					<div class='check_box'>
+						<input onchange="check_box_request.public_on_change_event();"  id="check_flag_show_danger_hospital" class="check_flag" type="checkbox"></input>
+						<label for="check_flag_show_danger_hospital"><div class='check_status'></div><div class="text_label"> 응급의료기관 표시</div></label>
+					</div>
+					
+					<div class='check_box'>
+						<input onchange="check_box_request.public_on_change_event();"  id="check_flag_show_hospital" class="check_flag" type="checkbox"></input>
+						<label for="check_flag_show_hospital"><div class='check_status'></div><div class="text_label"> 일반의료기관 표시</div></label>
+					</div>
+				</div>
+				
+			</div>
+			<div>
+				<input  type="radio" name="left_top_fixed_button" id="view_checkbox2" class="view_checkbox"></input>
+				
+				<!-- 안전 시설 버튼 영역!-->
+				<label for="view_checkbox2">
+					<div class="_button view_weathers tooltip">
+					
+							<div class="messagebox force_right_padding">
+								날씨 정보
+							</div>
+					
+					</div>
+				</label>
+				<!-- 안전 시설 버튼 영역의 표시 창 !-->
+				<div class="option_view">
+					날씨 필터링
+					<div class='check_box'>
+						<input  onchange="weather_request.check_request()" id="check_flag_show_rain" class="check_flag" type="checkbox"></input>
+						<label for="check_flag_show_rain"><div class='check_status'></div><div class="text_label" onclick=""> 날씨 주의</div></label>
+					</div>
+				
+				
+				</div>
+				
+			</div>
+		</div>
+		
+	</div>
+	
+	
+	<!-- 하단 영역의 게시글 및 팝업 뷰 창(위험도) -->
+	<div id="open_bottom_board" class="open_bottom_board" onclick="board_form_request.show_board_window();">
+		여기를 눌러 패널 열기
+	</div>
+	<div id="bottom_board" class="bottom_board board_show">
+		<div class="board_left_menu">
+			<div class="icon leaderboard tooltip"   onclick="board_form_request.form_board_all();">
+				<div class="colorbox">
+			
+				</div>
+				<div class="messagebox left">
+					전체
+				</div>
+			</div>
+			
+			
+			<div class="icon directions tooltip" onclick="board_form_request.form_board_hazard();">
+				<div class="colorbox">
+			
+				</div>
+				<div class="messagebox left" >
+					인재
+				</div>
+			</div>
+			<div class="icon fire tooltip" onclick="board_form_request.form_board_calamity();">
+				<div class="colorbox">
+			
+				</div>
+				<div class="messagebox left">
+					재해
+				</div>
+			</div>
+			<div class="icon chat tooltip" onclick="board_form_request.form_board_chat();">
+				<div class="colorbox">
+			
+				</div>
+				<div class="messagebox left">
+					실시간<br>대화
+				</div>
+			</div>
+			<div class="bottom">
+				<div class="icon hide_icon tooltip only_pc_show" onclick="board_form_request.close_board_window()">
+					<div class="colorbox">
+				
+					</div>
+					<div class="messagebox left">
+						숨기기
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		
+		<div class="board_right_menu">
+			<!-- 각종 위협 이벤트 목록의 뷰어 -->
+			<div class="board_boards " id="panel_board_main_boards">
+				<div class="board_list">
+					<div class="board_list_title">
+						<span id='panel_board_main_selected_category'>전체</span> 이벤트 목록
+					</div>
+					<div class="board_item_list small_background_colored colored_board_interface">
+					
+						<div class="board_box clickable hover without_box_shadow" onclick="pop_commands.open_only_new_event();">
+							<div class="icon add "></div> 새 이벤트 제보
+						</div>
+						
+						<div class="event_list" id="panel_event_list">
+						
+						</div>
+					</div>
+				</div>
+				
+				<!-- 특정 게시물의 뷰어 -->
+				<div class="detail_list hide" id="panel_board_threads">
+				
+					<div class="detail_list_title">
+						쓰레드
+					</div>
+					<div class="detail_item_list colored_board_interface">
+					
+						
+						<div id="panel_board_threads_contents">
+							<div class="board_box info">
+									<span class="board_number">1</span> <span class="bold">이벤트 선택</span> 최근 게시된 이벤트를 보려면 이벤트 마크를 클릭하거나 좌측 이벤트 목록 중 하나를 선택하세요.
+							</div>
+						</div>
+						
+						<div id="panel_board_threads_image">
+							<img id='panel_board_threads_image_tag'>
+							</img>
+						</div>
+						<br>
+						<div id="panel_board_threads_comments">
+						
+						</div>
+					<div>
+							<br><br>
+							<span class="label_box">
+								이벤트 코멘트 작성
+							</span><br>
+							
+							<div class="tooltip">
+								<select name="level" class="text_box" id="paenl_board_threads_comment_level">
+								  <option value="3">위험</option>
+								  <option value="2">경고</option>
+								  <option value="1">참고</option>
+								</select>
+								
+									<div class="messagebox force_bottom" style="left: 150px; width:100px;">
+										레벨 선택
+									</div>
+									
+							</div>
+							
+							
+							<br>
+								
+							<span class="label_box margin_top">
+								이벤트 내용 입력
+							</span><br>
+							<textarea type='textbox' id="paenl_board_threads_comment_txt" class="text_box" placeholder="이벤트 변동 사항 입력"  style="width:100%; height:100px;" noresize></textarea>
+										
+							
+							<br>
+							<div class="right">
+								<button class="button color_gray margin_bottom board_box clickable hover info" style="width:150px;" onclick="board_request.upload_comment()">등록</button>
+								<button class="button margin_bottom board_box clickable hover danger" style="width:150px;" id="panel_board_threads_event_stop" onclick="board_request.event_close()">
+								<div class='right_design'>관리자</div>
+								이벤트 종료
+								
+								
+								</button>
+							</div>
+						
+							
+						</div>
+					</div>
+				</div>
+				
+				<!-- 새 이벤트 작성 창뷰어 -->
+				<div class="detail_list" id="panel_board_create_post">
+				
+					<div class="detail_list_title">
+						새 이벤트 등록
+					</div>
+					<div class="detail_item_list colored_board_interface">
+						<div class="board_box warning">
+								<div class="icon action_white "></div> 새 위협 이벤트를 제보 해 주세요.
+						</div>
+						
+						
+						<span class="label_box">
+							위협 카테고리 및 레벨 지정
+						</span><br>
+						<div class="tooltip">
+							<select name="category" class="text_box"  id="panel_board_create_post_category">
+							  <option value="hazard">인재 위협</option>
+							  <option value="calamity">재난 위협</option>
+							</select>
+							
+								<div class="messagebox force_bottom" style="left: 150px; width:100px;">
+									위협 선택
+								</div>
+								
+						</div>
+						
+						<div class="tooltip">
+							<select name="level" class="text_box" id="panel_board_create_post_level">
+							  <option value="3">위험</option>
+							  <option value="2">경고</option>
+							  <option value="1">참고</option>
+							</select>
+							
+								<div class="messagebox force_bottom" style="left: 150px; width:100px;">
+									레벨 선택
+								</div>
+								
+						</div>
+						<br>
+						
+						
+						<span class="label_box">
+							위협 명칭
+						</span><br>
+						<input type='textbox'id="panel_board_create_post_title" class="text_box" placeholder="위협 명칭 및 제목 입력"  style="width:100%;"></input>
+									
+						
+						<span class="label_box margin_top">
+							위협 내용 입력
+						</span><br>
+						<textarea type='textbox' id="panel_board_create_post_content" class="text_box" placeholder="위협 명칭 및 제목 입력"  style="width:100%; height:100px;" noresize></textarea>
+									
+						
+						<span class="label_box">
+							사진 자료
+						</span><br>
+						<input type='file'id="panel_board_create_post_file" class="text_box"  style="display:none;" placeholder="부가 사진 자료"  style="width:100%;"></input>
+						
+						<div id="image_show_tag">
+							<img src='' onclick="document.getElementById('panel_board_create_post_file').click();" id="panel_board_create_file_image"></img>
+							<div class="right">
+								<button class="button color_gray margin_bottom" onclick="document.getElementById('panel_board_create_post_file').click();" style="width:100px;">찾아보기</button>
+								<br>
+								<button class="button color_gray margin_bottom" onclick="board_form_request.clear_image_selection();" style="width:100px;">지우기</button>
+							
+							</div>
+						</div>
+						<br>
+						<div class="right">
+							<button class="button color_gray margin_bottom" onclick="board_request.upload_post()">등록</button>
+						</div>
+						
+					</div>
+				</div>
+				
+				
+			</div>
+		
+		
+			<!-- 계정 창 -->
+			<div class="board_boards hide" id="panel_board_account_boards">
+				<div class="board_list">
+					<div class="board_list_title">
+						계정
+					</div>
+					<div class="board_item_list background_colored colored_board_interface">
+					
+						<div id="form_register_board_box" class="board_box clickable hover without_box_shadow" onclick="pop_commands.open_only_register();">
+							<div class="icon register"></div>회원가입
+						</div>
+						<div id="form_login_board_box" class="board_box clickable hover without_box_shadow" onclick="pop_commands.open_only_login()">
+							<div class="icon user"></div>로그인
+						</div>
+						
+						<div id="form_changepw_board_box"  class="board_box clickable hover without_box_shadow hide"  onclick="pop_commands.open_only_changepw();">
+							<div class="icon password"></div>비밀번호 변경
+						</div>
+						<div  id="form_region_admin_board_box" class="board_box clickable hover without_box_shadow hide"  onclick="pop_commands.open_only_region_admin();">
+							<div class="icon user"></div>지역 관리자
+						</div>
+						<div  id="form_logout_board_box" class="board_box clickable hover without_box_shadow hide"  onclick="pop_commands.open_only_logout();">
+							<div class="icon user"></div>로그아웃
+						</div>
+						<div  id="form_policy_board_box" class="board_box clickable hover without_box_shadow"  onclick="pop_commands.open_only_policy();">
+							<div class="icon info_icon"></div>법적 정보
+						</div>
+					</div>
+				</div>
+				
+				<!-- 회원가입 디테일 창 !-->
+				<div class="detail_list hide" id="panel_board_account_register">
+					<div class="detail_list_title">
+						회원가입
+					</div>
+					<div class="detail_item_list colored_board_interface">
+						<div class="board_box info">
+								<span class="bold">회원가입</span><br>
+								여긴 안전하데이에 가입하고 위협 정보를 공유 해 주세요. 
+							
+						</div>
+						
+						
+						<div class="parent_div center">
+							<div class="default_box no_margin_padding color_gray">
+								<div class="default_box designed_box board_account_login">
+								
+									<span class="label_box">
+										사용할 전화번호(아이디)
+									</span>
+									
+									<input type='textbox' id="form_register_id" class="text_box" placeholder="아이디" style="width:100%;"></input><br>
+									
+									<span class="label_box margin_top">
+										사용할 비밀번호
+									</span>
+									<input type='password' id="form_register_pw" class="text_box" placeholder="비밀번호"  style="width:100%;"></input>
+									
+									<span class="label_box margin_top">
+										비밀번호 다시 입력
+									</span>
+									<input type='password' id="form_register_pwre" class="text_box" placeholder="새 비밀번호 재입력"  style="width:100%;"></input>
+									
+									<span class="label_box margin_top">
+										사용할 닉네임 입력
+									</span>
+									<input type='textbox' id="form_register_nick" class="text_box" placeholder="닉네임"  style="width:100%;"></input>
+								</div>
+							
+								<br>
+								<button class="button color_gray right" onclick="account_request.register();">회원가입</button>
+							</div>
+						</div>
+						
+						
+					</div>
+				</div>
+				
+				
+				
+				<!-- 로그인 디테일 창 !-->
+				<div class="detail_list hide" id="panel_board_account_login">
+					<div class="detail_list_title">
+						로그인
+					</div>
+					<div class="detail_item_list colored_board_interface">
+						<div class="board_box info">
+								<span class="bold">로그인</span><br>
+								여긴 안전하데이에 로그인 합니다.
+							
+						</div>
+						
+						<div class="parent_div center">
+							<div class="default_box no_margin_padding color_gray">
+								<div class="default_box designed_box board_account_login">
+								
+									<span class="label_box">
+										전화번호
+									</span>
+									
+									<input type='textbox' class="text_box" id="form_login_id" placeholder="아이디 입력" style="width:100%;"></input><br>
+									
+									<span class="label_box margin_top">
+										비밀번호
+									</span>
+									<input type='password' class="text_box" id="form_login_pw"  placeholder="비밀번호 입력"  style="width:100%;"></input>
+								</div>
+							
+								<br>
+								<button class="button color_gray right" onclick="account_request.login();">로그인</button>
+							</div>
+						</div>
+						
+						
+					</div>
+				</div>
+				
+				
+				<!-- 비밀번호 변경 창 !-->
+				<div class="detail_list" id="panel_board_account_changepw">
+					<div class="detail_list_title">
+						비밀번호 변경
+					</div>
+					<div class="detail_item_list colored_board_interface">
+						<div class="board_box info">
+								<span class="bold">비밀번호 변경</span><br>
+								사용자 계정의 비밀번호를 변경합니다.
+							
+						</div>
+						
+						<div class="parent_div center">
+							<div class="default_box no_margin_padding color_gray">
+								<div class="default_box designed_box board_account_login">
+								
+								
+									<span class="label_box">
+										기존 비밀번호
+									</span>
+									<input type='password'  id="form_changepw_pw"  class="text_box" placeholder="비밀번호 입력"  style="width:100%;"></input>
+									
+									<span class="label_box margin_top">
+										새 비밀번호
+									</span>
+									<input type='password'  id="form_changepw_newpw" class="text_box" placeholder="비밀번호 입력"  style="width:100%;"></input>
+									<span class="label_box margin_top">
+										새 비밀번호 재 입력
+									</span>
+									<input type='password' id="form_changepw_newpwre"  class="text_box" placeholder="비밀번호 입력"  style="width:100%;"></input>
+								</div>
+							
+								<br>
+								<button class="button color_gray right" onclick="account_request.changepw();">변경</button>
+							</div>
+						</div>
+						
+						
+					</div>
+				</div>
+				
+				
+				<!-- 지역 관리 창 !-->
+				<div class="detail_list" id="panel_board_account_region_admin">
+					<div class="detail_list_title">
+						지역 관리
+					</div>
+					<div class="detail_item_list colored_board_interface">
+						<div class="board_box info">
+								<span class="bold">지역 변경</span><br>
+								지역의 서포터로 신청합니다.
+							
+						</div>
+							<span class="label_box">
+								사용자 담당 영역
+							</span><br>
+							<div class="tooltip">
+								<select name="category" class="text_box"  id="form_region_admin_category">
+									<option value="hazard">인재 위협</option>
+									<option value="calamity">재난 위협</option>
+								</select>
+
+								<div class="messagebox force_bottom" style="left: 150px; width:100px;">
+									위협 선택
+								</div>
+
+							</div>
+							<br>
+							<span class="label_box margin_top">
+								직업
+							</span>
+							
+							<input type='textbox' class="text_box" id="form_region_admin_job" placeholder="종사 종류" style="width:100%;"></input><br>
+							
+						<div class="right">
+							
+								<button class="button color_gray" onclick="reaction_request.requestadministrator();">신청</button>
+							
+						</div>
+						
+					</div>
+				</div>
+				<!-- 로그아웃 !-->
+				<div class="detail_list hide" id="panel_board_account_logout">
+					<div class="detail_list_title">
+						로그아웃
+					</div>
+					<div class="detail_item_list colored_board_interface">
+						<div class="board_box info">
+								<span class="bold">로그아웃</span><br>
+								정말 로그아웃 하시겠습니까?
+							
+						</div>
+						
+						<div class="right">
+							
+								<button class="button color_gray" onclick="account_request.logout();">로그아웃</button>
+							
+						</div>
+						
+						
+					</div>
+				</div>
+				
+				
+				<!-- 라이선스 및 법적 정보 !-->
+				<div class="detail_list hide" id="panel_board_account_policy">
+					<div class="detail_list_title">
+						라이선스 및 법적 사항
+					</div>
+					<div class="detail_item_list colored_board_interface">
+						<div class="board_box info">
+								<span class="bold">라이선스 및 법적 사항</span><br>
+								이 서비스는 공모전을 위한 임시 사이트입니다. 사이트에 대한 자세한 정보와 사용한 라이선스에 대한 법적인 사항을 알립니다.
+						</div>
+						<div class="board_box warning">
+								<span class="bold">공모전 목적의 픽션, 허구 내용이 포함됨</span><br>
+								이 사이트는 오직 공모전 '더 나은 생활'을 제시하기 위해 개발한 것으로 실제 서비스 목적이 아닙니다. 따라서 본 내용에 있는 모든 내용은 예시이며, 이런 형식으로 사용이 가능하다는 사실을 알리는 용도입니다.
+						</div>
+						
+						<div class="board_box danger">
+								<span class="bold">법적 책임 및 보장 없음</span><br>
+								본 사이트는 공모전 목적으로 작성된 것으로 내부 보안 문제 및 일부 알려진 보안 문제, 구현, 아이디어상 내부 문제가 있을 수 있습니다. 본 서비스는 공모전 아이디어 제시 목적으로, 실제 업으로서 실시하는 목적이 아니며, 영리적 또는 비영리적의 서비스를 목적으로 하지 않습니다.
+								<br>
+								<br>
+								이 사이트는 "여긴 안전하데이" [강요셉, 김대환, 배진호, 장진석]이 직접 개발한 것으로, 참조한 라이브러리 및 각 라이브러리의 라이선스 정보는 하단에 명시되어 있습니다. 본 서비스를 실제 서비스 하기 위해서는 라이브러리, 알고리즘 등 내부 지식재산 상세한 라이선스의 추가적인 검증이 필요하며 실제 서비스 목적으로 개발되지 않았습니다. 아래 라이선스 정보가 이 소프트웨어의 전체 라이선스를 의미하지는 않으며 각종 활용된 소프트웨어 라이선스에 대한 고지 입니다.
+						</div>
+						
+						
+						<div class="board_box info" style="word-break:break-all">
+							<span class="bold">라이브러리 사용 : toastr</span><br>
+							주소 : https://github.com/CodeSeven/toastr<br>
+							<br>
+
+							MIT License<br>
+							<br>
+							Copyright (c) 2017 Toastr Maintainers<br>
+							<br>
+							Permission is hereby granted, free of charge, to any person obtaining a copy
+							of this software and associated documentation files (the "Software"), to deal
+							in the Software without restriction, including without limitation the rights
+							to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+							copies of the Software, and to permit persons to whom the Software is
+							furnished to do so, subject to the following conditions:<br>
+							<br>
+							The above copyright notice and this permission notice shall be included in all
+							copies or substantial portions of the Software.<br>
+							<br>
+							THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+							IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+							FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+							AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+							LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+							OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+							SOFTWARE.
+
+									
+						</div>
+						
+						
+						<div class="board_box info" style="word-break:break-all">
+							<span class="bold">라이브러리 사용 : jquery 3.1.1</span><br>
+							주소 : https://github.com/jquery/jquery<br>
+							<br>
+
+							Copyright OpenJS Foundation and other contributors, https://openjsf.org/<br>
+							<br>
+							Permission is hereby granted, free of charge, to any person obtaining
+							a copy of this software and associated documentation files (the
+							"Software"), to deal in the Software without restriction, including
+							without limitation the rights to use, copy, modify, merge, publish,
+							distribute, sublicense, and/or sell copies of the Software, and to
+							permit persons to whom the Software is furnished to do so, subject to
+							the following conditions:<br>
+							<br>
+							The above copyright notice and this permission notice shall be
+							included in all copies or substantial portions of the Software.<br>
+							<br>
+							THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+							EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+							MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+							NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+							LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+							OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+							WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.<br>
+
+									
+						</div>
+						
+						<div class="board_box info" style="word-break:break-all">
+							<span class="bold">나눔고딕 사용</span><br>
+							주소 : https://help.naver.com/service/30016/contents/18088?osType=PC&lang=ko<br>
+							<br>
+
+							1. 라이선스
+							<br>Copyright (c) 2010, NAVER Corporation (https://www.navercorp.com/) with Reserved Font Name Nanum, Naver Nanum, NanumGothic, Naver NanumGothic, NanumMyeongjo, Naver NanumMyeongjo, NanumBrush, Naver NanumBrush, NanumPen, Naver NanumPen, Naver NanumGothicEco, NanumGothicEco, Naver NanumMyeongjoEco, NanumMyeongjoEco, Naver NanumGothicLight, NanumGothicLight, NanumBarunGothic, Naver NanumBarunGothic, NanumSquareRound, NanumBarunPen, MaruBuri, NanumSquareNeo
+							<br>​
+							<br>This Font Software is licensed under the SIL Open Font License, Version 1.1.
+							<br>​
+							<br>This license is copied below, and is also available with a FAQ at: http://scripts.sil.org/OFL
+							<br>​
+							<br>SIL OPEN FONT LICENSE
+							<br>Version 1.1 - 26 February 2007 
+							<br>​
+							<br>‘나눔, 네이버 나눔, 나눔고딕, 네이버 나눔고딕, 나눔명조, 네이버 나눔명조, 나눔손글씨, 네이버 나눔손글씨, 나눔펜, 네이버 나눔펜, 네이버 나눔고딕에코, 나눔고딕에코, 네이버 나눔명조에코, 나눔명조에코, 네이버 나눔고딕라이트, 나눔고딕라이트, 나눔바른고딕, 네이버나눔바른고딕, 나눔스퀘어라운드, 나눔바른펜, 마루 부리, 나눔스퀘어네오’ 폰트명에 대해 NAVER(https://www.navercorp.com/)가 저작권을 소유하고 있습니다.
+							<br>​
+							<br>본 폰트 소프트웨어는 SIL 오픈 폰트 라이선스 버전 1.1에 따라 라이선스 취득을 하였습니다.
+							<br>​
+							<br>본 라이선스는 하단에 복사되었고 http://scripts.sil.org/OFL의 FAQ 란에서도 열람 가능합니다. 
+							<br>​
+							<br>SIL 오픈 폰트 라이선스
+							<br>버전 1.1 (2007년 2월 26일)    
+							<br>​
+							<br>[DEFINITIONS (정의)]
+							<br>""Font Software"" refers to the set of files released by the Copyright Holder(s) under this license and clearly marked as such. This may include source files, build scripts and documentation.
+							<br>​
+							<br>""Reserved Font Name"" refers to any names specified as such after the copyright statement(s).
+							<br>​
+							<br>""Original Version"" refers to the collection of Font Software components as distributed by the Copyright Holder(s).
+							<br>​
+							<br>""Modified Version"" refers to any derivative made by adding to, deleting, or substituting in part or in whole any of the components of the Original Version, by changing formats or by porting the Font Software to a new environment.‘
+							<br>​
+							<br>""Author"" refers to any designer, engineer, programmer, technical writer or other person who contributed to the Font Software.  
+							<br>​
+							<br>‘폰트 소프트웨어’는 본 라이선스에 입거해 저작권자가 배포하고 명확하게 같은 표시가 된 파일들의 집합을 뜻하며, 여기에는 소스 파일, 빌드 스크립트와 문서가 이에 포함됩니다. 
+							<br>​
+							<br>‘저작권이 있는 폰트명’은 저작권 정책에 따라서 지정된 이름을 말합니다. 
+							<br>​
+							<br>‘원본’은 저작권자가 배포한 폰트 소프트웨어 구성요소를 의미합니다. 
+							<br>​
+							<br>‘수정본’은 포맷의 변경이나 폰트 소프트웨어를 새로운 환경에 포팅 시켜, 원본의 일부 혹은 전체에 추가, 삭제 대체해 만든 파생 저작물을 의미합니다.
+							<br>​
+							<br>‘저자’는 폰트 소프트웨어에 기여한 디자이너, 엔지니어, 프로그래머, 기술 전문가 등을 의미합니다.
+							<br>​
+							<br>2. PREAMBLE (전문)
+							<br>The goals of the Open Font License (OFL) are to stimulate worldwide development of collaborative font projects, to support the font creation efforts of academic and linguistic communities, and to provide a free and open framework  in which fonts may be shared and improved in partnership with others.
+							<br>​
+							<br>The OFL allows the licensed fonts to be used, studied, modified and redistributed freely as long as they are not sold by themselves. The fonts, including any derivative works, can be bundled, embedded, redistributed and/or sold with any software provided that any reserved names are not used by derivative works.
+							<br>​
+							<br>The fonts and derivatives, however, cannot be released under any other type of license.
+							<br>​
+							<br>The requirement for fonts to remain under this license does not apply to any document created using the fonts or their derivatives.  
+							<br>​
+							<br>본 폰트 라이선스를 오픈하는 것은(이하 OFL)는 전 세계 폰트 개발 프로젝트를 지원하고 학계와 언어 관련 학계의 폰트 개발을 위한 연구를 지지하기 위해서인 동시에, 폰트 제휴를 통해 폰트가 공유되고 개선될 수 있는 자유롭게 개방된 환경을 만들기 위해서입니다.  
+							<br>​
+							<br>OFL은 라이선스를 취득한 폰트가 그 자체로 판매되지 않는 한 자유롭게 사용, 연구, 수정, 재배포 하는 것을 허가합니다.
+							<br>​
+							<br>수정된 폰트를 포함한 폰트는 저작권 명이 사용되지 않는 한 기타 소프트웨어와 함께 묶이거나 삽입, 재배포 할 수 있습니다.
+							<br>​
+							<br>단 폰트와 수정된 폰트는 기타 다른 라이선스에 포함되어 배포될 수는 없습니다.
+							<br>​
+							<br>이 라이선스 하에 있기 위한 폰트에 대한 요구사항은 본 폰트나 수정본을 사용하여 제작된 어떠한 문서에도 적용되지 않습니다. 
+							<br>​
+							<br>3. PERMISSION & CONDITIONS (허가 및 조건)
+							<br>Permission is hereby granted, free of charge, to any person obtaining a copy of the Font Software, to use, study, copy, merge, embed, modify, redistribute, and sell modified and unmodified copies of the Font Software, subject to the following conditions:  
+							<br>​
+							<br>본 폰트 소프트웨어를 사용하도록 허가받은 개인/기업/단체 누구라도 다음 명시된 조건에 따라 폰트 소프트웨어의 수정 혹은 수정되지 않은 복사본을 무료로 사용, 연구, 복사, 통합, 삽입, 수정, 재배포할 수 있도록 허가합니다.
+							<br>​
+							<br>1) Neither the Font Software nor any of its individual components, in Original or Modified Versions, may be sold by itself.
+							<br>​
+							<br>원본이나 수정본의 폰트 소프트웨어 혹은 개별 구성요소인 폰트 자체가 판매되어서는 안됩니다.
+							<br>​
+							<br>2) Original or Modified Versions of the Font Software may be bundled, redistributed and/or sold with any software, provided that each copy contains the above copyright notice and this license.
+							<br>​
+							<br>These can be included either as stand-alone text files, human-readable headers or in the appropriate machine-readable metadata fields within text or binary files as long as those fields can be easily viewed by the user.  
+							<br>​
+							<br>본 폰트 소프트웨어의 원본 혹은 수정본은 상기 저작권 안내와 본 라이선스에 대한 내용을 포함하는 경우에는 다른 소프트웨어와 함께 묶이거나 재배포 혹은 판매가 가능합니다.
+							<br>​
+							<br>이는 독립 텍스트 파일과 가독성이 있는 헤더 혹은 유저가 용이하게 열람 가능한 이상 텍스트 파일 혹은 이진 파일 내 기계가 읽을 수 있는 메타데이터 형태를 모두 의미합니다.  
+							<br>​
+							<br>3) No Modified Version of the Font Software may use the Reserved Font Name(s) unless explicit written permission is granted by the corresponding Copyright Holder.
+							<br>​
+							<br>This restriction only applies to the primary font name as presented to the users.  
+							<br>​
+							<br>본 폰트 소프트웨어의 어떠한 수정본도 동일한 저작권자가 명시적 허가서를 부여하지 않는 한 저작권이 있는 폰트명을 사용해서는 안 됩니다.
+							<br>​
+							<br>본 제한 사항은 유저들에게 제공된 기존 폰트명을 뜻합니다.
+							<br>​
+							<br>4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font Software shall not be used to promote, endorse or advertise any Modified Version, except to acknowledge the contribution(s) of the Copyright Holder(s) and the Author(s) or with their explicit written permission.  
+							<br>​
+							<br>본 폰트 소프트웨어의 저작권자 혹은 저자의 이름은 그들의 명시적 서면 허가가 있거나 또는 그들의 공헌을 인정하기 위한 경우를 제외하고는 수정본에 대한 사용을 유도, 추천 혹은 광고하기 위한 목적으로 사용할 수 없습니다.  
+							<br>​
+							<br>5) The Font Software, modified or unmodified, in part or in whole, must be distributed entirely under this license, and must not be distributed any other license.
+							<br>​
+							<br>The requirement for fonts to remain under this license does not apply to any document created using the Font Software.
+							<br>​
+							<br>본 폰트 소프트웨어는 전체나 부분, 혹은 수정 여부에 상관없이 본 라이선스 하에 배포가 되어야 하며 기타 다른 라이선스 하에서는 배포를 할 수 없습니다.
+							<br>​
+							<br>폰트에 대한 요구 조건은 이 라이선스 하에서만 유효하며 이 라이선스 하에 있기 위한 폰트에 대한 요구사항은 본 폰트 소프트웨어를 사용해 제작한 어떠한 문서에도 적용되지 않습니다.
+							<br>​
+							<br>4. TERMINATION (계약의 종료)
+							<br>This license becomes null and void if any of the above conditions are not met. 
+							<br>​
+							<br>본 라이선스는 상기 조건 중 일부라도 부합되지 않으면 무효가 될 수 있습니다.
+							<br>​
+							<br>5. DISCLAIMER (면책조항)
+							<br>THE FONT SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT.
+							<br>​
+							<br>IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.  
+							<br>​
+							<br>본 폰트 소프트웨어는 저작권, 특허권, 상표권 및 기타 권리의 비침해성과 특정 목적에의 적합성 포함한 명시적, 묵시적인 어떠한 종류의 보증 없이 “있는 그대로” 제공됩니다.
+							<br>​
+							<br>어떠한 경우에도 저작권자는 본 폰트 소프트웨어의 사용 또는 이의 사용 불가, 그밖에 폰트 소프트웨어의 취급과 관련하여 발생하는 모든 계약, 불법행위 혹은 다른 일로 하여금 발생하는 일반적, 특수적, 간접적, 부차적 혹은 필연적 손해를 포함하는 소송, 손해, 혹은 기타 책임에 대한 의무를 가지지 않습니다.
+
+									
+						</div>
+						
+						
+						<div class="board_box info" style="word-break:break-all">
+							<span class="bold">카카오맵 API 사용</span><br>
+							주소 : https://apis.map.kakao.com/<br>
+							<br>
+							이 사이트는 카카오사의 카카오 맵 API를 이용하고 있습니다.<br>
+							여긴 안전하데이는 이 라이브러리의 서비스와는 그 어떠한 연관이 없으며, 해당 API를 이용할 뿐 입니다.
+							
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+			
+			
+			<div class="board_boards hide" id="panel_board_chat">
+			
+				<!-- 특정 게시물의 뷰어 -->
+				<div class="detail_list full_width">
+				
+					<div class="detail_list_title">
+						채팅
+					</div>
+					<div class="detail_item_list colored_board_interface">
+						<div id="detail_chat_area">
+						
+							<div>
+								<div class="board_box warning">
+										<span class="bold">참고</span> 채팅 서비스는 내 주변 지역 3km 내 사용자에게 한정됩니다.
+								</div>
+								<br>
+								<br>
+							</div>
+						</div>
+						
+						<div id="detail_chat_input_form">
+								
+							<input type='textbox' id="panel_board_chat_message" class="text_box" placeholder="채팅"  style="width:100%;" onkeydown="chat_request.send_chat_bykey(event)" noresize></textarea>
+										
+							
+							<br>
+							<div class="right">
+								<button class="button color_gray margin_bottom" onclick="chat_request.send_chat()">전송</button>
+							</div>
+						
+							
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+		
+		</div>
+		
+	</div>
+</body>
+
+<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=키기입"></script>
+<script>
+
+var mapContainer = document.getElementById('map'), 
+    mapOption = { 
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level:5
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+map.setCopyrightPosition(kakao.maps.CopyrightPosition.BOTTOMRIGHT, true);
+
+</script>
+<script src="/static/js/variable.js"></script>
+<script type="text/javascript" src="static/js/map/board_window.js"></script>
+<script type="text/javascript" src="static/js/map/map_first_init.js"></script>
+
+
+<script src="/static/lib/js/IntegratedClient.js"></script>
+<script src="/static/js/socket/connect.js"></script>
+<script src="/static/js/map/request_location.js"></script>
+<script src="/static/js/map/map_pin_manager.js"></script>
+<script src="/static/js/map/refresh_board_pin.js"></script>
+<script src="/static/js/map/single_map_pin_manager.js"></script>
+<script src="/static/js/socket/request_update.js"></script>
+
+
+<script src="/static/js/board/bottom_board_popup.js"></script>
+<script src="/static/js/board/pop_commands.js"></script>
+<script src="/static/js/form/account_form_request.js"></script>
+<script src="/static/js/form/board_form_request.js"></script>
+<script src="/static/js/form/check_box_request.js"></script>
+<script src="/static/js/form/notification_request.js"></script>
+<script src="/static/js/web_request/web_request.js"></script>
+<script src="/static/js/web_request/account_requests.js"></script>
+<script src="/static/js/web_request/public_data_request.js"></script>
+<script src="/static/js/web_request/event_pin_request.js"></script>
+<script src="/static/js/web_request/board_request.js"></script>
+<script src="/static/js/web_request/reaction_requests.js"></script>
+<script src="/static/js/web_request/weather_request.js"></script>
+<script src="/static/js/socket/chat_request.js"></script>
+<script src="/static/js/tools/tools.js"></script>
+<script src="/static/js/question_box/question_box.js"></script>
+<script src="/static/js/sound_messagebox/sound_messagebox.js"></script>
+<script src="/static/js/socket/new_event.js"></script>
+<script src="/static/js/socket/threat_live_event.js"></script>
+
+<script>
+
+	question_box.show_message("여긴 안전하데이 - 이용 정보 안내","<span style='color:rgba(130,130,130,1);'>[여긴 안전하데이]는 위치 및 사용자 실시간 제보 기반 각종 지리적 위험들을 해소하고 사용자의 안전을 확보하기 위해 제시된 아이디어입니다.<br> 이 소프트웨어에 게시된 모든 내용은 공모전 활동을 위한 가상 또는 픽션 내용이며, 실제 존재하는 내용이 아닙니다.<br><br>본 소프트웨어는 많은 네트워크 사용량을 요구할 수 있으며, 사용, 활용함으로써 발생하는 기타 문제에 대해 책임을 지지 아니합니다. 본 프로그램은 공개 라이선스로 배포되는 소프트웨어가 아니며 각종 라이선스 및 지식재산 정보는 설정의 법적 고지를 참조하십시오. 본 소프트웨어는 공모전 목적으로 제시된 것이며, 실제 업으로서 실시하거나 서비스 목적이 아님을 알립니다.<br><br>서비스 이용시 고지 정보에 동의함으로 간주합니다.</span>",function(){return true;});
+
+</script>
+
+
+</html>
+
+

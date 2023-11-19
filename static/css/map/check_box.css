@@ -1,0 +1,60 @@
+
+.check_box{
+	position: relative;
+	
+	height:30px;
+	
+	transition:0.3s;
+}
+.check_box:hover{
+	background: rgba(0,0,0,0.2);
+
+}
+.check_box .check_flag {
+	display:none;
+	
+	
+}
+.check_box .text_label{
+	display:inline-block;
+	vertical-align: text-bottom;
+	padding-top:7px;
+	position: absolute;
+	left:35px;
+	top:0px;
+	
+	cursor: pointer;
+	
+	
+	
+}
+
+.check_box .check_status{
+		display:inline-block;
+
+		position: absolute;
+		left:0px;
+		top:0px;
+		width:30px;
+		height:30px;
+		cursor:pointer;
+		transition: 0.2s;
+		
+		background-image : url("/static/images/outline_check_box_outline_blank_black_48dp.png");
+		background-size: 30px 30px;
+		
+		vertical-align: text-top;
+}
+
+.check_box .check_status:hover{
+		opacity:0.4;
+}
+.check_box .check_flag:checked ~ * .check_status{
+		display:inline-block;
+		width:30px;
+		height:30px;
+		
+		background-image : url("/static/images/outline_check_box_black_48dp.png");
+		background-size: 30px 30px;
+}
+		

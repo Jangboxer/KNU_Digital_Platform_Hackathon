@@ -1,0 +1,37 @@
+이 위치에 외부 오픈소스 라이브러리를 포함해야 합니다.
+
+라이브러리 주소 : https://fonts.google.com/icons
+
+outline_add_black_48dp.png
+outline_add_white_48dp.png
+outline_announcement_black_48dp.png
+outline_app_registration_black_48dp.png
+outline_bar_chart_white_48dp.png
+outline_check_box_black_48dp.png
+outline_check_box_outline_blank_black_48dp.png
+outline_directions_run_black_48dp.png
+outline_directions_walk_white_48dp.png
+outline_fire_extinguisher_black_48dp.png
+outline_gite_black_48dp.png
+outline_info_black_48dp.png
+outline_keyboard_arrow_down_white_48dp.png
+outline_leaderboard_black_48dp.png
+outline_local_fire_department_black_48dp.png
+outline_local_fire_department_white_48dp.png
+outline_local_hospital_black_48dp.png
+outline_local_police_black_48dp.png
+outline_location_on_black_48dp.png
+outline_login_white_48dp.png
+outline_logout_black_48dp.png
+outline_logout_white_48dp.png
+outline_medical_services_black_48dp.png
+outline_notifications_black_48dp.png
+outline_password_black_48dp.png
+outline_pending_actions_white_48dp.png
+outline_person_add_black_48dp.png
+outline_person_black_48dp.png
+outline_question_answer_white_48dp.png
+outline_settings_white_48dp.png
+outline_shield_black_48dp.png
+outline_thunderstorm_black_48dp.png
+outline_vertical_align_bottom_black_48dp.png

@@ -1,0 +1,6 @@
+이 위치에 외부 오픈소스 라이브러리를 포함해야 합니다.
+
+라이브러리 주소 : https://github.com/CodeSeven/toastr
+
+필요 파일 : toastr.min.js
+필요 파일 toastr.min.css

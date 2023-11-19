@@ -1,0 +1,76 @@
+.navigator_bar{
+	position: relative;
+	
+	display:inline-block;
+	
+	width:100%;
+	height:50px;
+	
+	box-sizing:border-box;
+	background: rgba(90,160,215,1);
+	box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+	z-index:150;
+}
+
+.navigator_bar .title{
+	display:inline-block;
+	height:20px;
+	width:305px;
+	
+	color: white;
+	vertical-align:middle;
+	
+	padding:10px;
+	
+	font-size:27px;
+	
+	pointer-events:none;
+	
+}
+
+.navigator_bar .right_bar{
+	float:right;
+	height:100%;
+}
+
+.navigator_bar .right_bar .icon{
+	
+	position: relative;
+	
+	display:inline-block;
+	width:50px;
+	height:50px;
+	
+	
+	background-size: 40px 40px;
+	background-position: 5px 5px;
+	background-repeat: no-repeat;
+	
+	overflow:visible;
+	transition:0.2s;
+	
+	cursor:pointer;
+	
+	
+}
+.navigator_bar .right_bar .icon .colorbox{
+	display:inline-block;
+	width:100%;
+	height:100%;
+	
+}
+.navigator_bar .right_bar .icon:hover .colorbox{
+	
+	background:rgba(0,0,0,0.1);
+	
+}
+.navigator_bar .right_bar .icon.login{
+	
+	background-image: url("/static/images/outline_login_white_48dp.png");
+	
+}
+.navigator_bar .right_bar .icon.settings{
+	
+	background-image: url("/static/images/outline_settings_white_48dp.png");
+	
+}

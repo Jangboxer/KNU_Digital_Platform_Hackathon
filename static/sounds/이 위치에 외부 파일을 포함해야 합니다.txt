@@ -1,0 +1,7 @@
+이 위치에 외부 파일을 포함해야 합니다.
+
+info.mp3
+warn.mp3
+
+효과음 다운로드 위치
+https://whitmem.xyz/
